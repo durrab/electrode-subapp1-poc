@@ -1,3 +1,172 @@
+
+# Cerence Hub App
+
+Cerence hub app is a container application for 
+cerence remote application like cerence-hub-vehicle and also provide
+the main layout for dashboard and navigation to remote microsite
+applications
+
+Cerence Hub App is using Electrode Framework https://www.electrode.io/
+
+
+# Getting Started
+
+### Installation
+
+1. Clone the repo
+```sh
+   git clone https://github.com/cerence/cerence-hub-app
+```
+2. Make sure to install Node.js (minimum is v12 required) 
+and then install fyn - (fyn is just like npm with more features)
+https://www.npmjs.com/package/fyn
+
+```sh
+   npm i -g fyn
+```
+3. Then run fyn command
+```sh
+   fyn
+```
+4. Once fyn download all the dependencies then run this command for dev
+```sh
+   fun dev or npm run dev or fyn run dev
+```
+All of them will work
+
+5. For production you can't run npm run start because it needs
+a proper SSL certificate and domain name - But if we need to check
+production version then we can run another script
+```sh
+   npm run mock or fyn run mock or fun mock
+```
+
+6. If you want to expose sub app as remote microsite
+then you need to export it under xrun-tasks.js file
+here is the sample
+
+```sh
+  const { loadDevTasks, xrun } = require("@xarc/app-dev");
+
+exports.xrun = xrun;
+
+xrun.updateEnv(
+  {
+    WEBPACK_DEV_PORT: 0,
+    APP_SERVER_PORT: 0,
+    HOST: "localhost",
+    PORT: 3001
+  },
+  { override: true }
+);
+
+const deps = require("./package.json").dependencies;
+
+const  remote = {
+  name: "poc-subapp",
+  subAppsToExpose: ["Deal", "Extras", "MainBody","Vehicle"],
+  shared: {
+    react: {
+      requiredVersion: deps.react,
+      import: "react",
+      shareKey: "react",
+      shareScope: "default",
+      singleton: true
+    },
+    "react-dom": {
+      requiredVersion: deps["react-dom"],
+      singleton: true
+    },
+    history: {
+      requiredVersion: deps["history"],
+      singleton: true
+    },
+    "subapp-web": {
+      requiredVersion: deps["subapp-web"],
+      singleton: true
+    },
+    "@babel/runtime": {
+      requiredVersion: deps["@babel/runtime"],
+      singleton: true
+    }
+  }
+}
+
+loadDevTasks(xrun, {
+  webpackOptions: {
+    cssModuleSupport: "all",
+    minify: true,
+    v1RemoteSubApps : process.env.REMOTE ? remote : null,
+  }
+});
+
+xrun.load("app", {
+  webpackOptions: {
+    cssModuleSupport: false,
+    minify: true,
+    v1RemoteSubApps : process.env.REMOTE ? remote : null,
+  }
+})
+```
+
+7. subAppsToExpose: ["Deal", "Extras", "MainBody","Vehicle"] 
+This is where we expose our remote sub apps
+8. Once we expose the subapps then we need to run another
+build script to copy the javascript contents for our content
+content server
+```sh
+   npm run build:remote or fyn run build:remote or fun build:remote
+```
+The above script will generated the remove sub apps url
+copy it to public directory for our content server and serve it
+
+Now if we run
+
+```sh
+   npm run dev or fyn run dev or fun dev
+```
+```sh
+[app] Content Server is now listening on http://127.0.0.1:3800
+[app] INFO: subapp-server disabled SSR metrics. options.report: {"enable":false}
+[app] registering public path here /Users/durrab/git/cerence/cerence-hub-vehicle/src/server/plugins/public
+[proxy] Electrode dev proxy listening on http port 3001
+[proxy] 
+[proxy] http://localhost:3001 (proxy) 
+[proxy]   ├─http://localhost:57968 (app)
+[proxy]   └─http://localhost:57959 (webpackDev)
+[proxy] 
+[proxy] View status at http://localhost:3001/__proxy_admin/status
+[proxy] You can access your app at http://localhost:3001
+[wds] webpack compiled successfully
++ [DEV ADMIN]: Press M show/hide menu | Q exit | L set App Log Show Level:  all  | webpack bundle is now VALID
+     ┌──────────────────────────────────────────────────────────────────────┐
+     │                   Electrode Dev Admin Console                        │
+     │                                                                      │
+     │   For your app server [app]                                          │
+     │                                                                      │
+     │     A - Restart D - inspect-brk mode I - inspect mode K - Kill       │
+     │   For Electrode webpack dev server  [wds]                            │
+     │     W - Restart E - inspect-brk mode R - inspect mode X - Kill       │
+     │   L - Change App Log Show Level Z - Show/Hide App Log Alert          │
+     │   P - Restart Dev Proxy M - Show this menu Q - Shutdown              │
+     │                                                                      │
+     │            App URL: http://localhost:3001                            │
+     │        App Log URL: http://localhost:3001/__electrode_dev/log        │
+     │      DEV dashboard: http://localhost:3001/__electrode_dev            │
+     │   WebPack reporter: http://localhost:3001/__electrode_dev/reporter   │
+     └──────────────────────────────────────────────────────────────────────┘
+```
+Check this out Content Server is now listening on http://127.0.0.1:3800
+and this url is available like this
+
+http://localhost:3800/public/js/_remote_~.poc_subapp.js
+
+Our Application will run independently as well as served as
+Remote Microsite App or we can call it Remote Sub App
+## Electrode SubApps
+This repo is extensively using Electrode Sub SubApps
+Following below are more details of how to create Electrode SubApps
+
 # subapp poc sample
 
 ## The Concept
