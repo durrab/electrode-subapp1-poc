@@ -1,12 +1,9 @@
 
-# Cerence Hub App
+# Electrode SubApp1 POC
 
-Cerence hub app is a container application for 
-cerence remote application like cerence-hub-vehicle and also provide
-the main layout for dashboard and navigation to remote microsite
-applications
 
-Cerence Hub App is using Electrode Framework https://www.electrode.io/
+
+Electrode SubApp1 POC is using Electrode Framework https://www.electrode.io/
 
 
 # Getting Started
@@ -15,7 +12,7 @@ Cerence Hub App is using Electrode Framework https://www.electrode.io/
 
 1. Clone the repo
 ```sh
-   git clone https://github.com/cerence/cerence-hub-app
+   git clone https://github.com/durrab/electrode-subapp1-poc.git
 ```
 2. Make sure to install Node.js (minimum is v12 required) 
 and then install fyn - (fyn is just like npm with more features)
@@ -128,7 +125,6 @@ Now if we run
 ```sh
 [app] Content Server is now listening on http://127.0.0.1:3800
 [app] INFO: subapp-server disabled SSR metrics. options.report: {"enable":false}
-[app] registering public path here /Users/durrab/git/cerence/cerence-hub-vehicle/src/server/plugins/public
 [proxy] Electrode dev proxy listening on http port 3001
 [proxy] 
 [proxy] http://localhost:3001 (proxy) 
