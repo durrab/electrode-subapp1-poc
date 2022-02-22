@@ -7,7 +7,7 @@ module.exports = {
   prepare: async ({ request, context }) => {
     return Promise.delay(50 + Math.random() * 1000)
       .return({
-        number: { value: 999 },
+        number: { value: 1000 },
         items: [
           {
             heading: "BLACK FRIDAY DEAL",
@@ -49,6 +49,7 @@ module.exports = {
         ]
       })
       .then(initialState => {
+        //console.log("checking initial state main body ", initialState)
         return { initialState };
       });
   },

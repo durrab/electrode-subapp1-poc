@@ -2,6 +2,7 @@ const plugin = {pkg: { name: "fetchUserInfoPlugin"}}
 const path = require('path')
 const fs = require('fs')
 const { default: axios } = require('axios')
+const vehicles = require("./vehicles.json");
 
 plugin.register = async (server, options) => {
 
@@ -42,8 +43,8 @@ plugin.register = async (server, options) => {
         url: "/api/cars",
         async handler(request, reply) {
           try {
-            const response = await axios.get("https://cvdt-dev2.cerencedemo.com/api/v1/car?fields=vin,imei,location");
-            const cars = response.data.cars;
+           // const response = await axios.get("https://cvdt-dev2.cerencedemo.com/api/v1/car?fields=vin,imei,location");
+            const cars = vehicles;//response.data.cars;
             reply.type("application/json");
             reply.send(cars);
           } catch (error) {

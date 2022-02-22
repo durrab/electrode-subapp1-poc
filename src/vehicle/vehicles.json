@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Toyota Rabi",
+    "timestamp" : "1645466003",
+    "vin" : "34343434341",
+    "modelYear" : "2022",
+    "model" : "runner",
+    "brand" : "Lexus"
+  },
+  {
+    "name": "Honda Rabi",
+    "timestamp" : "1645466004",
+    "vin" : "34343434343",
+    "modelYear" : "2022",
+    "model" : "runner",
+    "brand" : "MDX"
+  }
+]

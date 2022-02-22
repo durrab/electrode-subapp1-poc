@@ -1,12 +1,12 @@
 {
-  "name": "cerence-hub-vehicle",
+  "name": "sample-subapp-poc",
   "version": "0.0.1",
-  "description": "Cerence Vehicle Sub App",
+  "description": "Sample Sub App",
   "homepage": "http://test",
   "author": {
     "name": "Durrab Khan",
-    "email": "durrab.khan@cerence.com",
-    "url": "https://github.com/jchip"
+    "email": "durrab@gmail.com",
+    "url": "https://github.com/durrab"
   },
   "contributors": [],
   "files": [

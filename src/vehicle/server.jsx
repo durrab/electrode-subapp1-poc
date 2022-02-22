@@ -4,14 +4,14 @@ import { StaticRouter } from "react-router-dom";
 import Promise from "bluebird";
 import Fs from "fs";
 import axios from "axios";
+import vehicleData from "./vehicles.json"
 
 let filterImages;
 let cars;
 
 export default {
-  initialize: async () => {
-     const response = await axios.get("https://cvdt-dev2.cerencedemo.com/api/v1/car?fields=vin,imei,location");
-     cars = response.data.cars;
+  prepare: (request, context) => {
+    cars = vehicleData;//response.data.cars;
     if (!filterImages) {
       const natureImages = JSON.parse(Fs.readFileSync("static/nature-images.json"));
       filterImages = natureImages.value.map(x => {
@@ -24,16 +24,16 @@ export default {
         };
       });
     }
-  },
-  prepare: (request, context) => {
+
     const initialState = {
       imagesData: filterImages,
       cars: cars
     };
-    const store = subApp.reduxCreateStore(initialState);
-    return Promise.delay(50 + Math.random() * 500).return({
-      initialState,
-      store
+    return Promise.delay(50 + Math.random() * 500)
+    .return(initialState)
+    .then(initial => {
+      console.log("hello from prepare vehicle server.jsx");
+      return {transactionDetails: initial};
     });
   },
   StartComponent: props => {
@@ -44,3 +44,5 @@ export default {
     );
   }
 };
+
+console.log("hello from vehicle server.jsx");

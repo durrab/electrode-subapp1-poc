@@ -12,6 +12,7 @@ import { MessageOutlined } from "@ant-design/icons";
 import { Table } from "antd";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { AppContext } from "subapp-react";
 
 function formatDate(date) {
   var d = new Date(date),
@@ -30,6 +31,7 @@ function formatDate(date) {
 const ListVehicles = props => {
 
   console.log(`search type = ${JSON.stringify(props)}`);
+  const {cars, imagesData} = props.transactionDetails;
   const columns = [
     {
       title: 'Name',
@@ -66,18 +68,22 @@ const ListVehicles = props => {
   const onChange = (pagination, filters, sorter, extra) => {
     console.log("params", pagination, filters, sorter, extra);
   };
-  const [dataSource,setDataSource] = useState(undefined);
-  useEffect(async () => {
+  const [dataSource,setDataSource] = useState(cars.map(item => {
+    const data = item;
+    data.key = data.timestamp;
+    return data;
+  }));
+  /*useEffect(async () => {
     const res = await axios.get("/api/cars");
     setDataSource(res.data.map(item => {
       const data = item;
-      data.time = formatDate(new Date(data.time));
+      data.key = data.timestamp;
       return data;
     }));
-  },[]);
-  return (
+  },[]);*/
 
-      <Layout style={{ minHeight: "100vh" }}>
+      return (
+        <Layout style={{ minHeight: "100vh" }}>
         <Content style={{ margin: "0 16px" }}>
           <MessageOutlined style={{ fontSize: "16px", color: "#08c" }} />
           <div className="site-layout-content">
@@ -85,8 +91,7 @@ const ListVehicles = props => {
           </div>
         </Content>
       </Layout>
-
-  );
+      );
 };
 
 const SearchVehicles = props => {
@@ -99,7 +104,7 @@ const Vehicle = props => {
   return (
     <Switch>
       <Route path="/vehicle" exact component={() => <div>Vehicle Home Page</div>} {...props} />
-      <Route path="/vehicle/list" component={() => <ListVehicles {...props} imagesData={[]} />} />
+      <Route path="/vehicle/list" component={() => <ListVehicles {...props} />} />
       <Route
         path="/vehicle/search/vin"
         component={() => <SearchVehicles search="vin" {...props} />}
@@ -126,12 +131,14 @@ export default reduxLoadSubApp({
   StartComponent: props => {
     return (
       <>
+      {" "}
         <Router history={getBrowserHistory()}>
           <Component {...props} />
         </Router>
       </>
     );
   },
+
   reduxCreateStore: initialState => {
     return createStore(s => s, initialState);
   }
