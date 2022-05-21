@@ -1,14 +1,15 @@
 const { loadDevTasks, xrun } = require("@xarc/app-dev");
 
 exports.xrun = xrun;
+console.log(`checking host from cloud:===> ${process.env.HOST}`);
 console.log(`checking port from cloud:===> ${process.env.PORT}`);
 
 xrun.updateEnv(
   {
-    HOST: "samba.azurewebsites.net",
+    HOST: "choocha.azurewebsites.net",
     //WEBPACK_DEV_PORT: 3200,
     //APP_SERVER_PORT: 3100,
-    PORT: process.env.PORT || 80,
+    PORT: 3000,
     WEBPACK_DEV_MIDDLEWARE: true
   },
   { override: true }

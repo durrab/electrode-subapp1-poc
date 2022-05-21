@@ -1,8 +1,7 @@
-FROM node:14-alpine3.14
+FROM node:14-alpine
 WORKDIR /usr/app
-COPY package.json ./
 COPY . .
-RUN chown -R root:root /usr/app
 RUN npm i -g fyn
 RUN fyn
+RUN chown -R root:root /usr/app
 CMD ["npm","start"]
