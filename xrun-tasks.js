@@ -7,7 +7,7 @@ xrun.updateEnv(
     HOST: "samba.azurewebsites.net",
     //WEBPACK_DEV_PORT: 3200,
     //APP_SERVER_PORT: 3100,
-    PORT: 3000,
+    PORT: process.env.PORT || 3000,
     WEBPACK_DEV_MIDDLEWARE: true
   },
   { override: true }
