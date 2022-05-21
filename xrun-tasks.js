@@ -4,7 +4,7 @@ exports.xrun = xrun;
 
 xrun.updateEnv(
   {
-    HOST: "samba.azurewebsites.net",
+    HOST: "choocha.azurewebsites.net",
     //WEBPACK_DEV_PORT: 3200,
     //APP_SERVER_PORT: 3100,
     PORT: 3000,
