@@ -10,6 +10,10 @@ const portFromEnv = () => {
   return x !== null && !isNaN(x) ? x : defaultListenPort;
 };
 
+console.log(`checking HOST: ${process.env.HOST}`);
+console.log(`checking HOST IP: ${process.env.HOST_IP}`);
+console.log(`checking PORT: ${portFromEnv()}`);
+
 module.exports = {
 
   plugins: {

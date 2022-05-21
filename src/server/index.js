@@ -13,10 +13,6 @@ const fastify = require('fastify')(
 )
 const path = require('path')
 
-
-
-
-//
 const electrodeServer = require("@xarc/fastify-server");
 
 //
@@ -61,7 +57,12 @@ const startServer = config => {
 //
 
 module.exports = async () => {
-  await loadRuntimeSupport();
+  await loadRuntimeSupport({
+    awaitReady: false,
+    isomorphicCdnOptions: {
+      prodOnly: true
+    }
+  });
   const config = electrodeConfippet.config;
   const server = await startServer(config);
   return server;

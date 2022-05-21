@@ -4,59 +4,68 @@ exports.xrun = xrun;
 
 xrun.updateEnv(
   {
-    WEBPACK_DEV_PORT: 0,
-    APP_SERVER_PORT: 0,
-    HOST: "localhost",
-    PORT: 3001
+    HOST: "samba.azurewebsites.net",
+    //WEBPACK_DEV_PORT: 3200,
+    //APP_SERVER_PORT: 3100,
+    PORT: 3000,
+    WEBPACK_DEV_MIDDLEWARE: true
   },
   { override: true }
 );
 
-const deps = require("./package.json").dependencies;
+if (process.env.REMOTE) {
+  console.log(`got REMOTE `);
+  /*const deps = require("./package.json").dependencies;
 
-const  remote = {
-  name: "poc-subapp",
-  subAppsToExpose: ["Deal", "Extras", "MainBody","Vehicle"],
-  shared: {
-    react: {
-      requiredVersion: deps.react,
-      import: "react",
-      shareKey: "react",
-      shareScope: "default",
-      singleton: true
-    },
-    "react-dom": {
-      requiredVersion: deps["react-dom"],
-      singleton: true
-    },
-    history: {
-      requiredVersion: deps["history"],
-      singleton: true
-    },
-    "subapp-web": {
-      requiredVersion: deps["subapp-web"],
-      singleton: true
-    },
-    "@babel/runtime": {
-      requiredVersion: deps["@babel/runtime"],
-      singleton: true
+  const remote = {
+    name: "poc-subapp",
+    subAppsToExpose: ["Deal", "Extras", "MainBody", "Vehicle"],
+    shared: {
+      react: {
+        requiredVersion: deps.react,
+        import: "react",
+        shareKey: "react",
+        shareScope: "default",
+        singleton: true
+      },
+      "react-dom": {
+        requiredVersion: deps["react-dom"],
+        singleton: true
+      },
+      history: {
+        requiredVersion: deps["history"],
+        singleton: true
+      },
+      "subapp-web": {
+        requiredVersion: deps["subapp-web"],
+        singleton: true
+      },
+      "@babel/runtime": {
+        requiredVersion: deps["@babel/runtime"],
+        singleton: true
+      }
     }
-  }
-}
+  };*/
 
-loadDevTasks(xrun, {
-  webpackOptions: {
-    cssModuleSupport: "all",
-    minify: true,
-    v1RemoteSubApps : process.env.REMOTE ? remote : null,
-  }
-});
+  loadDevTasks(xrun, {
+    webpackOptions: {
+      cssModuleSupport: "all",
+      minify: true,
+     // v1RemoteSubApps: remote
+    }
+  });
+} else {
+  loadDevTasks(xrun, {
+    webpackOptions: {
+      cssModuleSupport: "all",
+      minify: true
+    }
+  });
+}
 
 xrun.load("app", {
   webpackOptions: {
-    cssModuleSupport: false,
-    minify: true,
-    v1RemoteSubApps : process.env.REMOTE ? remote : null,
+    cssModuleSupport: "all",
+    minify: true
   }
-})
-
+});

@@ -1,4 +1,5 @@
-"use strict";
+'use strict';
+const { babelPresetFile } = require('@xarc/app-dev');
 module.exports = {
-  extends: "@xarc/app-dev/config/babel/babelrc.js"
+  presets: [babelPresetFile],
 };

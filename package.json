@@ -35,10 +35,10 @@
     "test": "clap check",
     "build": "xrun electrode/build",
     "build:remote": "REMOTE=true xrun electrode/build && npm run remove && npm run gen",
-    "start": "node lib/server",
+    "start": "NODE_ENV=production npm run build && node lib/server",
     "cp-static": "shx cp -r static/ dist/static",
     "xrun-tasks": "xrun",
-    "start:mock": "REMOTE=false xrun electrode/build && xrun electrode/mock-cloud",
+    "start:mock": "NODE_ENV=production REMOTE=false xrun electrode/build && xrun electrode/mock-cloud",
     "remove": "shx rm -rf src/server/public/js && rm -rf src/server/public/map",
     "gen": "shx cp -r dist/js src/server/public/js && shx cp -r dist/map src/server/public/map"
   },
