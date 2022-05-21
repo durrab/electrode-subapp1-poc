@@ -5,5 +5,4 @@ COPY . .
 RUN chown -R root:root /usr/app
 RUN npm i -g fyn
 RUN fyn
-RUN fun build
 CMD ["npm","start"]
