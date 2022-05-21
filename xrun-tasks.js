@@ -1,6 +1,7 @@
 const { loadDevTasks, xrun } = require("@xarc/app-dev");
 
 exports.xrun = xrun;
+console.log(`checking port from cloud:===> ${process.env.PORT}`);
 
 xrun.updateEnv(
   {

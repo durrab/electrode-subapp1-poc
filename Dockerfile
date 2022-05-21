@@ -4,5 +4,4 @@ COPY package.json ./
 COPY . .
 RUN npm install
 RUN chown -R root:root /usr/app
-EXPOSE 3000
 CMD ["npm","start"]
